@@ -2,6 +2,8 @@
 
 Discord bot for your daily pets.
 
+Uses https://www.npmjs.com/package/pet-pet-gif
+
 ## Getting started
 
 * Go to https://discord.com/developers and create an application
