@@ -9,10 +9,10 @@ client.on('ready', () => {
 });
 
 client.on('message', async msg => {
-    const avatar = msg.author.avatar, id = msg.author.id;
-    const avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
-    const animatedGif = await petPetGif(avatarUrl, { resolution: 200, })
     if (msg.content === 'pet') {
+        const avatar = msg.author.avatar, id = msg.author.id;
+        const avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
+        const animatedGif = await petPetGif(avatarUrl, { resolution: 200, })
         const attachment = new MessageAttachment(animatedGif, 'profile-image.gif');
         msg.reply({ files: [attachment] });
     }
