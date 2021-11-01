@@ -21,9 +21,9 @@ Uses https://www.npmjs.com/package/pet-pet-gif
     
       node pet-bot.js
 
-* Start petting yourself
+* Start petting yourself and your friends.
 
 <br>
 
 
-![pet](https://user-images.githubusercontent.com/48166553/138744373-40715f8a-48da-488b-b8b0-f22f58f5eb63.gif)
+![pet](https://user-images.githubusercontent.com/48166553/139668027-e6f47ae6-b547-46c1-8210-227ed6c61a93.gif)
