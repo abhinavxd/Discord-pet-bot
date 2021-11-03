@@ -12,6 +12,7 @@ Uses https://www.npmjs.com/package/pet-pet-gif
 * Create .env file with the token
              
       CLIENT_TOKEN='YOUR_TOKEN_HERE'
+      PHOTO_API_TOKEN='CLIENT_ACCESS'   // https://unsplash.com/developers
       
 * Install dependencies
 

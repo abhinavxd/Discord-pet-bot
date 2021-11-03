@@ -1,5 +1,7 @@
 require("dotenv").config();
 const petPetGif = require("pet-pet-gif");
+const axios = require('axios');
+
 const { Client, Intents, MessageAttachment, User } = require("discord.js");
 
 const client = new Client({
@@ -12,14 +14,27 @@ client.on("ready", () => {
 
 client.on("message", async (msg) => {
 	if (msg.content.startsWith("pet")) {
-		let user;
+		
+		let user, avatar, id, avatarUrl;
+
 		if (msg.mentions.users.first()) {
 			user = msg.mentions.users.first();
-		} else {
+			avatar = user.avatar;
+			if (!avatar) {
+				return msg.channel.send(`<@${user.id}> no image no pets!`);
+			}
+			avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
+		} 
+		else {
 			user = msg.author;
+			searchQuery = msg.content.split(" ")[1];
+
+			let url = `https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${process.env.PHOTO_API_TOKEN}`
+			let response = await axios.get(url)
+
+			avatarUrl = response.data.results[0].urls.small;
 		}
-		const avatar = user.avatar;
-		const id = user.id;
+
 		if (!avatar) {
 			return msg.channel.send(`<@${user.id}> no image no pets!`);
 		}
