@@ -12,7 +12,7 @@ client.on("ready", () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on("message", async (msg) => {
+client.on("messageCreate", async (msg) => {
 	if (msg.content.startsWith("pet")) {
 		
 		let user, avatar, id, avatarUrl;
@@ -23,7 +23,7 @@ client.on("message", async (msg) => {
 			if (!avatar) {
 				return msg.channel.send(`<@${user.id}> no image no pets!`);
 			}
-			avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
+			avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${avatar}.png`;
 		} 
 		else {
 			user = msg.author;
@@ -34,11 +34,6 @@ client.on("message", async (msg) => {
 
 			avatarUrl = response.data.results[0].urls.small;
 		}
-
-		if (!avatar) {
-			return msg.channel.send(`<@${user.id}> no image no pets!`);
-		}
-		const avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
 
 		const animatedGif = await petPetGif(avatarUrl, { resolution: 200 });
 		const attachment = new MessageAttachment(
