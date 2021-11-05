@@ -31,8 +31,11 @@ client.on("messageCreate", async (msg) => {
 
 			let url = `https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${process.env.PHOTO_API_TOKEN}`
 			let response = await axios.get(url)
-
-			avatarUrl = response.data.results[0].urls.small;
+			if(response.data.total === 0) {
+				return msg.channel.send(`Hey, <@${user.id}> we didn't found any result!`);
+			}
+			let randomArrayNum = Math.floor( Math.random() * 9 ) + 0
+			avatarUrl = response.data.results[randomArrayNum].urls.small;
 		}
 
 		const animatedGif = await petPetGif(avatarUrl, { resolution: 200 });
