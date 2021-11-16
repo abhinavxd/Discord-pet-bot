@@ -25,5 +25,9 @@ Uses https://www.npmjs.com/package/pet-pet-gif
 
 <br>
 
+## Why?
+
+¯\\\_(ツ)\_/¯
+
 
 ![pet](https://user-images.githubusercontent.com/48166553/139668027-e6f47ae6-b547-46c1-8210-227ed6c61a93.gif)
