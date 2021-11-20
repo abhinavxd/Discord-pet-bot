@@ -1,5 +1,7 @@
 require("dotenv").config();
 const petPetGif = require("pet-pet-gif");
+const axios = require('axios');
+
 const { Client, Intents, MessageAttachment, User } = require("discord.js");
 
 const client = new Client({
@@ -10,20 +12,31 @@ client.on("ready", () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on("message", async (msg) => {
+client.on("messageCreate", async (msg) => {
 	if (msg.content.startsWith("pet")) {
-		let user;
+		
+		let user, avatar, id, avatarUrl;
+
 		if (msg.mentions.users.first()) {
 			user = msg.mentions.users.first();
-		} else {
+			avatar = user.avatar;
+			if (!avatar) {
+				return msg.channel.send(`<@${user.id}> no image no pets!`);
+			}
+			avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${avatar}.png`;
+		} 
+		else {
 			user = msg.author;
+			searchQuery = msg.content.split(" ")[1];
+
+			let url = `https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${process.env.PHOTO_API_TOKEN}`
+			let response = await axios.get(url)
+			if(response.data.total === 0) {
+				return msg.channel.send(`Hey, <@${user.id}> we didn't found any result!`);
+			}
+			let randomArrayNum = Math.floor( Math.random() * 9 ) + 0
+			avatarUrl = response.data.results[randomArrayNum].urls.small;
 		}
-		const avatar = user.avatar;
-		const id = user.id;
-		if (!avatar) {
-			return msg.channel.send(`<@${user.id}> no image no pets!`);
-		}
-		const avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`;
 
 		const animatedGif = await petPetGif(avatarUrl, { resolution: 200 });
 		const attachment = new MessageAttachment(
